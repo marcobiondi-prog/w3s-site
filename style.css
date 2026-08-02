@@ -252,11 +252,13 @@ footer p {
 .user-menu-panel {
     margin-top: 0.5rem;
     min-width: 220px;
-    padding: 0.5rem;
-    border: none;
-    border-radius: 16px;
-    background: #ffffff;
-    box-shadow: 0 12px 32px rgba(15, 23, 60, 0.18), 0 2px 8px rgba(15, 23, 60, 0.08);
+    padding: 0.6rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 20px;
+    background: linear-gradient(180deg, rgba(44, 44, 48, 0.92), rgba(32, 32, 36, 0.92));
+    backdrop-filter: blur(26px) saturate(160%);
+    -webkit-backdrop-filter: blur(26px) saturate(160%);
+    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.4), 0 2px 10px rgba(0, 0, 0, 0.28);
 }
 
 .user-menu-item {
@@ -264,10 +266,11 @@ footer p {
     align-items: center;
     gap: 0.65rem;
     padding: 0.55rem 0.6rem;
-    border-radius: 10px;
-    color: #2a2d5c;
+    border-radius: 12px;
+    color: #ffffff;
     font-size: 0.9rem;
     font-weight: 500;
+    text-decoration: none;
     transition: background-color 0.16s ease;
 }
 
@@ -279,34 +282,34 @@ footer p {
     height: 28px;
     flex: 0 0 auto;
     border-radius: 8px;
-    background: rgba(52, 64, 201, 0.08);
-    color: #3440c9;
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.9);
 }
 
 .user-menu-item:hover,
 .user-menu-item:focus {
-    background: rgba(52, 64, 201, 0.08);
-    color: #2a2d5c;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
 }
 
 .user-menu-item-logout {
-    color: #c4475f;
+    color: #ffb8bf;
 }
 
 .user-menu-item-logout .user-menu-item-icon {
-    background: rgba(196, 71, 87, 0.12);
-    color: #c4475f;
+    background: rgba(196, 71, 87, 0.2);
+    color: #ffb8bf;
 }
 
 .user-menu-item-logout:hover,
 .user-menu-item-logout:focus {
-    background: rgba(196, 71, 87, 0.1);
-    color: #c4475f;
+    background: rgba(196, 71, 87, 0.22);
+    color: #ffd3d8;
 }
 
 .user-menu-divider {
     margin: 0.35rem 0.3rem;
-    border-top: 1px solid rgba(15, 23, 60, 0.08);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 @media (max-width: 991.98px) {
@@ -781,6 +784,167 @@ footer p {
     .buttons .btn-danger:focus {
         background: #b33b4a;
         border-color: #b33b4a;
+    }
+}
+
+/* ============ Card e form in stile Material (login / registrazione) ============ */
+
+.material-card {
+    border: none;
+    border-radius: 20px;
+    background: #ffffff;
+    box-shadow: 0 1px 3px rgba(15, 23, 60, 0.12), 0 8px 24px rgba(15, 23, 60, 0.1);
+    overflow: hidden;
+}
+
+.material-card-body {
+    padding: 2.25rem 2rem;
+}
+
+.material-title {
+    color: #1b1e3d;
+    font-weight: 600;
+    margin-bottom: 1.75rem;
+}
+
+.material-card .form-floating > .form-control {
+    border-radius: 12px;
+    border: 1px solid rgba(15, 23, 60, 0.18);
+    background-color: #fbfbff;
+    transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.material-card .form-floating > .form-control:focus {
+    border-color: #3440c9;
+    box-shadow: 0 0 0 3px rgba(52, 64, 201, 0.15);
+    background-color: #ffffff;
+}
+
+.material-card .form-floating > label {
+    color: #6b7094;
+}
+
+/* Bottone Material "filled" (elevato, con ripple al click) */
+.btn-material {
+    position: relative;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1.5rem;
+    border: none;
+    border-radius: 999px;
+    background: linear-gradient(145deg, #3d4bdc, #2b37b8);
+    color: #ffffff;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    box-shadow: 0 2px 6px rgba(52, 64, 201, 0.35);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.btn-material:hover,
+.btn-material:focus-visible {
+    color: #ffffff;
+    box-shadow: 0 6px 16px rgba(52, 64, 201, 0.4);
+    transform: translateY(-1px);
+}
+
+.btn-material:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 4px rgba(52, 64, 201, 0.35);
+}
+
+/* Bottoni Material "outlined" per i provider social */
+.btn-material-outline {
+    position: relative;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    padding: 0.65rem 1.5rem;
+    border-radius: 999px;
+    border: 1px solid rgba(15, 23, 60, 0.2);
+    background: #ffffff;
+    color: #2a2d5c;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background-color 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+.btn-material-outline:hover,
+.btn-material-outline:focus-visible {
+    background: rgba(15, 23, 60, 0.04);
+    border-color: rgba(15, 23, 60, 0.3);
+    box-shadow: 0 2px 8px rgba(15, 23, 60, 0.12);
+    color: #2a2d5c;
+}
+
+.btn-material-outline .bi-google {
+    color: #ea4335;
+}
+
+.btn-material-outline .bi-facebook {
+    color: #1877f2;
+}
+
+.material-divider {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #9195b8;
+    font-size: 0.8rem;
+    margin: 1.5rem 0;
+}
+
+.material-divider::before,
+.material-divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: rgba(15, 23, 60, 0.12);
+}
+
+.material-link {
+    color: #3440c9;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.material-link:hover {
+    text-decoration: underline;
+}
+
+/* Effetto ripple al click sui bottoni Material */
+.ripple-effect {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.55);
+    transform: scale(0);
+    animation: ripple-anim 0.5s ease-out;
+    pointer-events: none;
+}
+
+.btn-material-outline .ripple-effect {
+    background: rgba(15, 23, 60, 0.12);
+}
+
+@keyframes ripple-anim {
+    to {
+        transform: scale(2.8);
+        opacity: 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .btn-material,
+    .btn-material-outline {
+        transition: none !important;
+    }
+
+    .ripple-effect {
+        display: none;
     }
 }
 

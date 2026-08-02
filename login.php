@@ -16,63 +16,45 @@ include "header.php";
 
 ?>
 
-<div class="container mt-5">
+<div class="container mt-5 mb-5">
 
     <div class="row justify-content-center">
 
-        <div class="col-md-6">
+        <div class="col-md-6 col-lg-5">
 
-            <div class="card shadow">
+            <div class="material-card">
 
-                <div class="card-header bg-primary text-white">
+                <div class="material-card-body">
 
-                    <h2 class="text-center">
-
-                        Login
-
-                    </h2>
-
-                </div>
-
-                <div class="card-body">
+                    <h2 class="material-title text-center">Bentornato</h2>
 
                     <form action="handle_login.php" method="POST">
 
-                        <div class="mb-3">
-
-                            <label class="form-label">
-
-                                Email
-
-                            </label>
-
+                        <div class="form-floating mb-3">
                             <input
                                 type="email"
-                                name="email"
                                 class="form-control"
+                                id="email"
+                                name="email"
+                                placeholder="Email"
                                 required>
-
+                            <label for="email">Email</label>
                         </div>
 
-                        <div class="mb-4">
-
-                            <label class="form-label">
-
-                                Password
-
-                            </label>
-
+                        <div class="form-floating mb-4">
                             <input
                                 type="password"
-                                name="password"
                                 class="form-control"
+                                id="password"
+                                name="password"
+                                placeholder="Password"
                                 required>
-
+                            <label for="password">Password</label>
                         </div>
 
                         <button
                             type="submit"
-                            class="btn btn-success w-100">
+                            class="btn btn-material w-100">
 
                             Accedi
 
@@ -80,13 +62,25 @@ include "header.php";
 
                     </form>
 
-                    <hr>
+                    <div class="material-divider">oppure</div>
 
-                    <p class="text-center">
+                    <div class="d-grid gap-2">
+
+                        <a href="auth_google.php" class="btn-material-outline">
+                            <i class="bi bi-google"></i> Accedi con Google
+                        </a>
+
+                        <a href="auth_facebook.php" class="btn-material-outline">
+                            <i class="bi bi-facebook"></i> Accedi con Facebook
+                        </a>
+
+                    </div>
+
+                    <p class="text-center mt-4 mb-0">
 
                         Non hai ancora un account?
 
-                        <a href="register.php">
+                        <a href="register.php" class="material-link">
 
                             Registrati
 

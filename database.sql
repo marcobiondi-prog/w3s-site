@@ -11,8 +11,10 @@ CREATE TABLE IF NOT EXISTS utenti (
     nome VARCHAR(100) NOT NULL,
     cognome VARCHAR(100) NOT NULL,
     email VARCHAR(150) NOT NULL UNIQUE,
-    numero_di_telefono VARCHAR(30) NOT NULL,
-    password VARCHAR(255) NOT NULL,
+    google_id VARCHAR(255) NULL UNIQUE,
+    facebook_id VARCHAR(255) NULL UNIQUE,
+    numero_di_telefono VARCHAR(30) NULL,
+    password VARCHAR(255) NULL,
     creato_il TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
 
