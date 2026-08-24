@@ -28,6 +28,12 @@ include "header.php";
 
                     <h2 class="material-title text-center">Bentornato</h2>
 
+                    <?php if (isset($_GET["registered"]) && $_GET["registered"] == "1") { ?>
+                        <div class="alert alert-success" role="alert">
+                            Registrazione avvenuta con successo!!
+                        </div>
+                    <?php } ?>
+
                     <form action="handle_login.php" method="POST">
 
                         <div class="form-floating mb-3">

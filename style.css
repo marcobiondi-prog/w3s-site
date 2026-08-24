@@ -2,6 +2,13 @@ body {
     margin: 0;
 }
 
+.alert-register-danger {
+    background: #ff2948;
+    border: 1px solid #d40028;
+    color: #ffffff;
+    box-shadow: 0 6px 14px rgba(212, 0, 40, 0.28);
+}
+
 h1 {
     text-align: center;
 }

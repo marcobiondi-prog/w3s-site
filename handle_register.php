@@ -4,7 +4,7 @@ require_once "conn.php";
 
 // Controlla che il form sia stato inviato tramite POST
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
-    header("Location: register.php");
+    header("Location: register.php?error=1");
     exit();
 }
 
@@ -21,16 +21,17 @@ if (
     empty($nome) ||
     empty($cognome) ||
     empty($email) ||
-    empty($telefono) ||
     empty($password) ||
     empty($conferma_password)
 ) {
-    die("Tutti i campi sono obbligatori.");
+    header("Location: register.php?error=1");
+    exit();
 }
 
 // Controllo password
 if ($password !== $conferma_password) {
-    die("Le password non coincidono.");
+    header("Location: register.php?error=1");
+    exit();
 }
 
 // Controllo se l'email esiste già
@@ -45,7 +46,8 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 if ($result->num_rows > 0) {
-    die("Questa email è già registrata.");
+    header("Location: register.php?exists=1");
+    exit();
 }
 
 $stmt->close();
@@ -73,12 +75,13 @@ if ($stmt->execute()) {
 
     $stmt->close();
 
-    header("Location: login.php");
+    header("Location: login.php?registered=1");
 
     exit();
 
 } else {
 
-    die("Errore durante la registrazione.");
+    header("Location: register.php?error=1");
+    exit();
 
 }

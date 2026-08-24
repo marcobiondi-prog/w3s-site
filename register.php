@@ -15,6 +15,18 @@ include "header.php";
 
                     <h2 class="material-title text-center">Crea un account</h2>
 
+                    <?php if (isset($_GET["exists"]) && $_GET["exists"] == "1") { ?>
+                        <div class="alert alert-danger alert-register-danger" role="alert">
+                            Utente gia registrato con questa email.
+                        </div>
+                    <?php } ?>
+
+                    <?php if (isset($_GET["error"]) && $_GET["error"] == "1") { ?>
+                        <div class="alert alert-danger alert-register-danger" role="alert">
+                            registrazione non effettuata
+                        </div>
+                    <?php } ?>
+
                     <form action="handle_register.php" method="POST">
 
                         <div class="row">
@@ -28,7 +40,7 @@ include "header.php";
                                         name="nome"
                                         placeholder="Nome"
                                         required>
-                                    <label for="nome">Nome</label>
+                                    <label for="nome">Nome *</label>
                                 </div>
                             </div>
 
@@ -41,7 +53,7 @@ include "header.php";
                                         name="cognome"
                                         placeholder="Cognome"
                                         required>
-                                    <label for="cognome">Cognome</label>
+                                    <label for="cognome">Cognome *</label>
                                 </div>
                             </div>
 
@@ -55,7 +67,7 @@ include "header.php";
                                 name="email"
                                 placeholder="Email"
                                 required>
-                            <label for="email">Email</label>
+                            <label for="email">Email *</label>
                         </div>
 
                         <div class="form-floating mb-3">
@@ -65,7 +77,7 @@ include "header.php";
                                 id="telefono"
                                 name="telefono"
                                 placeholder="Telefono"
-                                required>
+                                >
                             <label for="telefono">Telefono</label>
                         </div>
 
@@ -77,7 +89,7 @@ include "header.php";
                                 name="password"
                                 placeholder="Password"
                                 required>
-                            <label for="password">Password</label>
+                            <label for="password">Password *</label>
                         </div>
 
                         <div class="form-floating mb-4">
@@ -88,7 +100,7 @@ include "header.php";
                                 name="conferma_password"
                                 placeholder="Conferma Password"
                                 required>
-                            <label for="conferma_password">Conferma Password</label>
+                            <label for="conferma_password">Conferma Password *</label>
                         </div>
 
                         <button type="submit" class="btn btn-material w-100">
