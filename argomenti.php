@@ -25,6 +25,12 @@ $result = $conn->query($sql);
 
     <h1 class="mb-4">Gestione Argomenti</h1>
 
+    <?php if (isset($_GET["errore"]) && $_GET["errore"] === "duplicato") { ?>
+        <div class="alert alert-warning" role="alert">
+            Questo argomento esiste già.
+        </div>
+    <?php } ?>
+
     <div class="card shadow mb-5">
 
         <div class="card-header bg-primary text-white">

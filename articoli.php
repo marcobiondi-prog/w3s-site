@@ -25,6 +25,12 @@ $result = $conn->query($sql);
 
     <h1 class="mb-4">Nuovo Articolo</h1>
 
+    <?php if (isset($_GET["errore"]) && $_GET["errore"] === "duplicato") { ?>
+        <div class="alert alert-warning" role="alert">
+            Esiste già un articolo con questo titolo nell'argomento selezionato.
+        </div>
+    <?php } ?>
+
     <div class="card shadow">
 
         <div class="card-body">

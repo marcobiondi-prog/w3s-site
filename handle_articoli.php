@@ -56,6 +56,25 @@ if ($id_articolo > 0) {
 
 } else {
 
+    $check_sql = "SELECT id_articolo
+                  FROM articoli
+                  WHERE id_argomento = ? AND titolo = ?
+                  LIMIT 1";
+
+    $check_stmt = $conn->prepare($check_sql);
+    $check_stmt->bind_param("is", $id_argomento, $titolo);
+    $check_stmt->execute();
+    $check_result = $check_stmt->get_result();
+
+    if ($check_result->num_rows > 0) {
+        $check_stmt->close();
+        $conn->close();
+        header("Location: articoli.php?errore=duplicato");
+        exit();
+    }
+
+    $check_stmt->close();
+
     // Inserimento di un nuovo articolo
     $sql = "INSERT INTO articoli
             (id_argomento, titolo, corpo, pubblico)

@@ -41,7 +41,10 @@ $result = $stmt->get_result();
 
 if ($result->num_rows > 0) {
 
-    die("Questo argomento esiste già.");
+    $stmt->close();
+    $conn->close();
+    header("Location: argomenti.php?errore=duplicato");
+    exit();
 
 }
 
