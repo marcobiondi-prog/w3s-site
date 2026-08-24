@@ -1,6 +1,6 @@
 <?php
 
-require_once "conn.php";
+require_once __DIR__ . "/includes/models/conn.php";
 require_once "oauth_config.php";
 require_once "oauth_helpers.php";
 

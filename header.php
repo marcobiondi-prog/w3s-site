@@ -1,5 +1,5 @@
 <?php
-require_once "conn.php";
+require_once __DIR__ . "/includes/models/conn.php";
 
 $current_page = basename($_SERVER["PHP_SELF"]);
 
@@ -23,7 +23,7 @@ function nav_active($page, $current) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
     <!-- Stili personalizzati del sito (va DOPO Bootstrap per poterlo sovrascrivere) -->
-    <link rel="stylesheet" href="style.css?v=<?= filemtime(__DIR__ . "/style.css") ?>">
+    <link rel="stylesheet" href="asset/style.css?v=<?= filemtime(__DIR__ . "/asset/style.css") ?>">
 </head>
 
 <body>

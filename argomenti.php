@@ -1,6 +1,6 @@
 <?php
 
-require_once "conn.php";
+require_once __DIR__ . "/includes/models/conn.php";
 
 // Controllo della sessione
 if (!isset($_SESSION["user_id"])) {

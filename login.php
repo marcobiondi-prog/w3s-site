@@ -1,6 +1,6 @@
 <?php
 
-require_once "conn.php";
+require_once __DIR__ . "/includes/models/conn.php";
 
 // Se l'utente è già autenticato lo reindirizza alla dashboard
 if (isset($_SESSION["user_id"])) {

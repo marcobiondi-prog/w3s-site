@@ -1,6 +1,6 @@
 <?php
 
-require_once "conn.php";
+require_once __DIR__ . "/includes/models/conn.php";
 
 // Controlla che il form sia stato inviato tramite POST
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
