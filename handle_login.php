@@ -59,7 +59,8 @@ if ($result->num_rows == 1) {
 
 } else {
 
-    die("Utente non trovato.");
+    header("Location: login.php?error=email_not_found");
+    exit();
 
 }
 

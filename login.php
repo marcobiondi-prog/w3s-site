@@ -34,6 +34,18 @@ include "header.php";
                         </div>
                     <?php } ?>
 
+                    <?php if (isset($_GET["error"]) && $_GET["error"] == "email_not_found") { ?>
+                        <div class="alert alert-warning" role="alert">
+                            <i class="bi bi-exclamation-triangle"></i> Email non trovata nel database
+                        </div>
+                    <?php } ?>
+
+                    <?php if (isset($_GET["reset"]) && $_GET["reset"] == "success") { ?>
+                        <div class="alert alert-success" role="alert">
+                            <i class="bi bi-check-circle"></i> Password reimpostata con successo! Accedi con la tua nuova password
+                        </div>
+                    <?php } ?>
+
                     <form action="handle_login.php" method="POST">
 
                         <div class="form-floating mb-3">
@@ -58,13 +70,21 @@ include "header.php";
                             <label for="password">Password</label>
                         </div>
 
-                        <button
-                            type="submit"
-                            class="btn btn-material w-100">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <button
+                                type="submit"
+                                class="btn btn-material flex-grow-1">
 
-                            Accedi
+                                Accedi
 
-                        </button>
+                            </button>
+                        </div>
+
+                        <div class="text-end">
+                            <a href="forgot_password.php" class="material-link small">
+                                Password dimenticata?
+                            </a>
+                        </div>
 
                     </form>
 

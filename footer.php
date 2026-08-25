@@ -25,5 +25,67 @@ document.addEventListener("click", function (event) {
 });
 </script>
 
+<!-- Gestione backdrop e menu account mobile -->
+<script>
+const mobileUserMenu = document.querySelector(".mobile-user-menu");
+const mobileUserPanel = document.querySelector(".mobile-user-panel");
+const mobileUserTrigger = document.querySelector(".mobile-user-trigger");
+
+if (mobileUserMenu && mobileUserPanel) {
+    // Crea il backdrop
+    const createBackdrop = () => {
+        let backdrop = document.getElementById("menu-backdrop");
+        if (!backdrop) {
+            backdrop = document.createElement("div");
+            backdrop.id = "menu-backdrop";
+            backdrop.style.cssText = `
+                position: fixed;
+                inset: 0;
+                background: rgba(10, 12, 30, 0.5);
+                backdrop-filter: blur(6px);
+                z-index: 100;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.18s;
+            `;
+            document.body.appendChild(backdrop);
+        }
+        return backdrop;
+    };
+
+    const backdrop = createBackdrop();
+
+    // Osserva il menu per apriture/chiusure
+    const observer = new MutationObserver(() => {
+        if (mobileUserMenu.hasAttribute("open")) {
+            backdrop.style.opacity = "1";
+            backdrop.style.pointerEvents = "auto";
+        } else {
+            backdrop.style.opacity = "0";
+            backdrop.style.pointerEvents = "none";
+        }
+    });
+
+    observer.observe(mobileUserMenu, { attributes: true, attributeFilter: ["open"] });
+
+    // Chiudi il menu quando clicchi sul backdrop
+    backdrop.addEventListener("click", () => {
+        mobileUserMenu.removeAttribute("open");
+    });
+
+    // Chiudi il menu quando clicchi fuori (anche se non sul backdrop)
+    document.addEventListener("click", function (event) {
+        if (!mobileUserMenu.hasAttribute("open")) return;
+
+        const isClickInsideMenu = mobileUserPanel.contains(event.target);
+        const isClickOnTrigger = mobileUserTrigger && mobileUserTrigger.contains(event.target);
+
+        if (!isClickInsideMenu && !isClickOnTrigger) {
+            mobileUserMenu.removeAttribute("open");
+        }
+    });
+}
+</script>
+
 </body>
 </html>
