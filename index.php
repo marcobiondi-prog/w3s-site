@@ -1,6 +1,6 @@
 <?php
 $title = "W3S - Home";
-include 'header.php';
+include __DIR__ . '/viewes/header.php';
 
 $logged_in = isset($_SESSION["user_id"]);
 
@@ -44,7 +44,7 @@ $articoli = $conn->query($sql);
                             <p class="card-text text-muted mb-3"><?php echo htmlspecialchars($articolo["argomento"]); ?></p>
 
                             <a
-                                href="<?php echo $articolo["pubblico"] ? "articolo_pubblico.php" : "articolo.php"; ?>?id=<?php echo $articolo["id_articolo"]; ?>"
+                                href="viewes/<?php echo $articolo["pubblico"] ? "articolo_pubblico.php" : "articolo.php"; ?>?id=<?php echo $articolo["id_articolo"]; ?>"
                                 class="btn btn-primary btn-sm mt-auto">
                                 Leggi
                             </a>
@@ -68,5 +68,5 @@ $articoli = $conn->query($sql);
 </main>
 
 <?php
-include 'footer.php';
+include __DIR__ . '/viewes/footer.php';
 ?>
