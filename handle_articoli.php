@@ -96,7 +96,8 @@ if ($stmt->execute()) {
 
     $stmt->close();
 
-    header("Location: articoli.php");
+    $successo = $id_articolo > 0 ? "modifica" : "inserimento";
+    header("Location: articoli.php?successo=" . $successo);
     exit();
 
 } else {

@@ -23,11 +23,13 @@ curl_setopt_array($ch, [
         "grant_type" => "authorization_code",
     ]),
 ]);
-$token_data = json_decode(curl_exec($ch), true);
+$token_response = curl_exec($ch);
+$token_error = curl_error($ch);
+$token_data = json_decode($token_response ?: "", true);
 curl_close($ch);
 
 if (!isset($token_data["access_token"])) {
-    die("Errore durante l'autenticazione con Google.");
+    die("Errore durante l'autenticazione con Google." . ($token_error ? " Dettaglio: " . htmlspecialchars($token_error) : ""));
 }
 
 // Recupera i dati del profilo utente
@@ -36,11 +38,13 @@ curl_setopt_array($ch, [
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_HTTPHEADER => ["Authorization: Bearer " . $token_data["access_token"]],
 ]);
-$profile = json_decode(curl_exec($ch), true);
+$profile_response = curl_exec($ch);
+$profile_error = curl_error($ch);
+$profile = json_decode($profile_response ?: "", true);
 curl_close($ch);
 
 if (!isset($profile["sub"], $profile["email"])) {
-    die("Impossibile recuperare i dati dell'account Google.");
+    die("Impossibile recuperare i dati dell'account Google." . ($profile_error ? " Dettaglio: " . htmlspecialchars($profile_error) : ""));
 }
 
 login_or_register_oauth(

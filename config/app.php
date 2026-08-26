@@ -5,7 +5,10 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 define('APP_ROOT', __DIR__ . '/..');
-define('APP_BASE_URL', 'http://localhost/database/esercizio-w3s/w3s-site');
+$app_scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+$app_host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+$app_path = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? '/')), '/');
+define('APP_BASE_URL', getenv('APP_BASE_URL') ?: $app_scheme . '://' . $app_host . ($app_path === '/' ? '' : $app_path));
 
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');

@@ -31,6 +31,12 @@ $result = $conn->query($sql);
         </div>
     <?php } ?>
 
+    <?php if (isset($_GET["successo"]) && $_GET["successo"] === "inserimento") { ?>
+        <div class="alert alert-success" role="alert">
+            Argomento inserito con successo.
+        </div>
+    <?php } ?>
+
     <div class="card shadow mb-5">
 
         <div class="card-header bg-primary text-white">

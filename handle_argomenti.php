@@ -61,7 +61,7 @@ if ($stmt->execute()) {
 
     $stmt->close();
 
-    header("Location: argomenti.php");
+    header("Location: argomenti.php?successo=inserimento");
     exit();
 
 } else {
