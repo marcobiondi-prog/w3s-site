@@ -38,7 +38,7 @@ include __DIR__ . "/header.php";
 
                     <?php if (isset($_GET["success"]) && $_GET["success"] == "1") { ?>
                         <div class="alert alert-success" role="alert">
-                            <i class="bi bi-check-circle"></i> Email inviata con successo! Controlla la tua casella email
+                            <i class="bi bi-check-circle"></i> Link di recupero generato. Controlla la tua casella email oppure usa il link locale qui sotto.
                         </div>
                     <?php } ?>
 
@@ -51,7 +51,7 @@ include __DIR__ . "/header.php";
                         </div>
                     <?php } ?>
 
-                    <form action="../handle_forgot_password.php" method="POST">
+                    <form action="../controllers/handle_forgot_password.php" method="POST">
 
                         <div class="form-floating mb-4">
                             <input

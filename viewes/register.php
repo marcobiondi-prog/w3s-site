@@ -27,7 +27,7 @@ include __DIR__ . "/header.php";
                         </div>
                     <?php } ?>
 
-                        <form action="../handle_register.php" method="POST">
+                        <form action="../controllers/handle_register.php" method="POST">
 
                         <div class="row">
 
@@ -113,11 +113,11 @@ include __DIR__ . "/header.php";
 
                     <div class="d-grid gap-2">
 
-                        <a href="../auth_google.php" class="btn-material-outline">
+                        <a href="../controllers/auth_google.php" class="btn-material-outline">
                             <i class="bi bi-google"></i> Registrati con Google
                         </a>
 
-                        <a href="../auth_facebook.php" class="btn-material-outline">
+                        <a href="../controllers/auth_facebook.php" class="btn-material-outline">
                             <i class="bi bi-facebook"></i> Registrati con Facebook
                         </a>
 

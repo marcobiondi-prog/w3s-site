@@ -46,7 +46,7 @@ include __DIR__ . "/header.php";
                         </div>
                     <?php } ?>
 
-                    <form action="../handle_login.php" method="POST">
+                    <form action="../controllers/handle_login.php" method="POST">
 
                         <div class="form-floating mb-3">
                             <input
@@ -92,11 +92,11 @@ include __DIR__ . "/header.php";
 
                     <div class="d-grid gap-2">
 
-                        <a href="../auth_google.php" class="btn-material-outline">
+                        <a href="../controllers/auth_google.php" class="btn-material-outline">
                             <i class="bi bi-google"></i> Accedi con Google
                         </a>
 
-                        <a href="../auth_facebook.php" class="btn-material-outline">
+                        <a href="../controllers/auth_facebook.php" class="btn-material-outline">
                             <i class="bi bi-facebook"></i> Accedi con Facebook
                         </a>
 

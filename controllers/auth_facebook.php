@@ -5,7 +5,7 @@ require_once __DIR__ . "/oauth_config.php";
 
 if (empty(FACEBOOK_APP_ID)) {
     // Nessuna credenziale reale configurata: usa la simulazione locale
-    header("Location: viewes/auth_simulate.php?provider=facebook");
+    header("Location: ../viewes/auth_simulate.php?provider=facebook");
     exit();
 }
 

@@ -5,7 +5,7 @@ require_once __DIR__ . "/oauth_config.php";
 
 if (empty(GOOGLE_CLIENT_ID)) {
     // Nessuna credenziale reale configurata: usa la simulazione locale
-    header("Location: viewes/auth_simulate.php?provider=google");
+    header("Location: ../viewes/auth_simulate.php?provider=google");
     exit();
 }
 

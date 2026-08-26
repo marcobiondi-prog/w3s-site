@@ -4,7 +4,7 @@ require_once __DIR__ . "/conn.php";
 
 // Controlla che il form sia stato inviato tramite POST
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
-    header("Location: viewes/register.php?error=1");
+    header("Location: ../viewes/register.php?error=1");
     exit();
 }
 
@@ -30,7 +30,7 @@ if (
 
 // Controllo password
 if ($password !== $conferma_password) {
-    header("Location: viewes/register.php?error=1");
+    header("Location: ../viewes/register.php?error=1");
     exit();
 }
 
@@ -46,7 +46,7 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 if ($result->num_rows > 0) {
-    header("Location: viewes/register.php?exists=1");
+    header("Location: ../viewes/register.php?exists=1");
     exit();
 }
 
@@ -75,7 +75,7 @@ if ($stmt->execute()) {
 
     $stmt->close();
 
-    header("Location: viewes/login.php?registered=1");
+    header("Location: ../viewes/login.php?registered=1");
 
     exit();
 

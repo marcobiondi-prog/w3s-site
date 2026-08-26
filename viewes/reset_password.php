@@ -84,7 +84,7 @@ include __DIR__ . "/header.php";
                             </div>
                         <?php } ?>
 
-                            <form action="../handle_reset_password.php" method="POST">
+                            <form action="../controllers/handle_reset_password.php" method="POST">
 
                             <input type="hidden" name="token" value="<?= htmlspecialchars($token) ?>">
 

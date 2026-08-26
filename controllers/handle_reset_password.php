@@ -4,7 +4,7 @@ require_once __DIR__ . "/conn.php";
 
 // Controlla che il form sia stato inviato tramite POST
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
-    header("Location: viewes/forgot_password.php");
+    header("Location: ../viewes/forgot_password.php");
     exit();
 }
 
@@ -15,13 +15,13 @@ $conferma_password = $_POST["conferma_password"] ?? "";
 
 // Controllo campi vuoti
 if (empty($token) || empty($password) || empty($conferma_password)) {
-    header("Location: viewes/reset_password.php?token=" . urlencode($token) . "&error=empty_password");
+    header("Location: ../viewes/reset_password.php?token=" . urlencode($token) . "&error=empty_password");
     exit();
 }
 
 // Controllo password
 if ($password !== $conferma_password) {
-    header("Location: viewes/reset_password.php?token=" . urlencode($token) . "&error=passwords_not_match");
+    header("Location: ../viewes/reset_password.php?token=" . urlencode($token) . "&error=passwords_not_match");
     exit();
 }
 
@@ -33,7 +33,7 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 if ($result->num_rows != 1) {
-    header("Location: viewes/forgot_password.php");
+    header("Location: ../viewes/forgot_password.php");
     exit();
 }
 
@@ -50,10 +50,10 @@ $stmt_update->bind_param("si", $password_hash, $utente["id_utente"]);
 
 if ($stmt_update->execute()) {
     $stmt_update->close();
-    header("Location: viewes/login.php?reset=success");
+    header("Location: ../viewes/login.php?reset=success");
     exit();
 } else {
-    header("Location: viewes/reset_password.php?token=" . urlencode($token) . "&error=update_failed");
+    header("Location: ../viewes/reset_password.php?token=" . urlencode($token) . "&error=update_failed");
     exit();
 }
 

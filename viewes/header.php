@@ -107,7 +107,7 @@ function nav_active($page, $current) {
                             </li>
                             <li><hr class="user-menu-divider"></li>
                             <li>
-                                <a class="user-menu-item user-menu-item-logout" href="<?= $home_base ?>handle_logout.php">
+                                <a class="user-menu-item user-menu-item-logout" href="../controllers/handle_logout.php">
                                     <span class="user-menu-item-icon"><i class="bi bi-box-arrow-right"></i></span>
                                     Esci
                                 </a>
@@ -135,7 +135,7 @@ function nav_active($page, $current) {
                                     <span class="mobile-user-panel-avatar"></span>
                                     <?= htmlspecialchars($_SESSION["nome"] ?? "Utente") ?>
                                 </span>
-                                <a class="mobile-user-panel-power" href="<?= $home_base ?>handle_logout.php" title="Esci">
+                                <a class="mobile-user-panel-power" href="../controllers/handle_logout.php" title="Esci">
                                     <i class="bi bi-box-arrow-right"></i>
                                 </a>
                             </div>

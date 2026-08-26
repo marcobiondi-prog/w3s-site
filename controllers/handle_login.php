@@ -5,7 +5,7 @@ require_once __DIR__ . "/conn.php";
 // Controlla che il form sia stato inviato tramite POST
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
 
-    header("Location: viewes/login.php");
+    header("Location: ../viewes/login.php");
     exit();
 
 }
@@ -17,7 +17,8 @@ $password = $_POST["password"];
 // Controllo campi vuoti
 if (empty($email) || empty($password)) {
 
-    die("Compila tutti i campi.");
+    header("Location: ../viewes/login.php?error=missing_fields");
+    exit();
 
 }
 
@@ -48,18 +49,19 @@ if ($result->num_rows == 1) {
         $_SESSION["email"] = $utente["email"];
 
         // Reindirizza alla dashboard
-        header("Location: viewes/dashboard.php");
+        header("Location: ../viewes/dashboard.php");
         exit();
 
     } else {
 
-        die("Password non corretta.");
+        header("Location: ../viewes/login.php?error=invalid_password");
+        exit();
 
     }
 
 } else {
 
-    header("Location: viewes/login.php?error=email_not_found");
+    header("Location: ../viewes/login.php?error=email_not_found");
     exit();
 
 }

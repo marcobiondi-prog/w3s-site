@@ -5,11 +5,11 @@ require_once __DIR__ . "/conn.php";
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require_once __DIR__ . "/vendor/autoload.php";
+require_once __DIR__ . "/../vendor/autoload.php";
 
 // Controlla che il form sia stato inviato tramite POST
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
-    header("Location: viewes/forgot_password.php");
+    header("Location: ../viewes/forgot_password.php");
     exit();
 }
 
@@ -18,7 +18,7 @@ $email = trim($_POST["email"]);
 
 // Controllo campi vuoti
 if (empty($email)) {
-    header("Location: viewes/forgot_password.php?error=empty_email");
+    header("Location: ../viewes/forgot_password.php?error=empty_email");
     exit();
 }
 
@@ -54,7 +54,13 @@ if ($result->num_rows == 1) {
     $base_url = $scheme . '://' . $host . ($base_path === '' || $base_path === '/' ? '' : $base_path);
     $reset_link = rtrim($base_url, '/') . '/viewes/reset_password.php?token=' . urlencode($token);
 
-    $smtpConfig = require __DIR__ . "/config/smtp.php";
+    $smtpConfig = require __DIR__ . "/../config/smtp.php";
+
+    if (empty($smtpConfig['enabled']) || empty($smtpConfig['username']) || empty($smtpConfig['password'])) {
+        $_SESSION['reset_debug_link'] = $reset_link;
+        header("Location: ../viewes/forgot_password.php?success=1&debug=1");
+        exit();
+    }
 
     try {
         $mail = new PHPMailer(true);
@@ -87,16 +93,16 @@ if ($result->num_rows == 1) {
             . '<p>Se non hai richiesto il recupero della password, ignora questa email.</p>';
 
         $mail->send();
-        header("Location: viewes/forgot_password.php?success=1");
+        header("Location: ../viewes/forgot_password.php?success=1");
         exit();
     } catch (Exception $e) {
         $_SESSION['reset_debug_link'] = $reset_link;
-        header("Location: viewes/forgot_password.php?success=1&debug=1");
+        header("Location: ../viewes/forgot_password.php?success=1&debug=1");
         exit();
     }
 } else {
     // Email non trovata
-    header("Location: viewes/forgot_password.php?error=email_not_found");
+    header("Location: ../viewes/forgot_password.php?error=email_not_found");
     exit();
 }
 
