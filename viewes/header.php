@@ -4,6 +4,8 @@ require_once __DIR__ . "/../controllers/conn.php";
 $current_page = basename($_SERVER["PHP_SELF"]);
 $view_base = str_ends_with(str_replace("\\", "/", dirname($_SERVER["SCRIPT_NAME"] ?? "")), "/viewes") ? "" : "viewes/";
 $home_base = $view_base === "" ? "../" : "";
+$asset_base = $view_base === "" ? "../asset/" : "asset/";
+$controller_base = $view_base === "" ? "../controllers/" : "controllers/";
 
 function nav_active($page, $current) {
     return $page === $current ? "active" : "";
@@ -25,7 +27,7 @@ function nav_active($page, $current) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
     <!-- Stili personalizzati del sito (va DOPO Bootstrap per poterlo sovrascrivere) -->
-    <link rel="stylesheet" href="../asset/style.css?v=<?= filemtime(__DIR__ . "/../asset/style.css") ?>">
+    <link rel="stylesheet" href="<?= $asset_base ?>style.css?v=<?= filemtime(__DIR__ . "/../asset/style.css") ?>">
 </head>
 
 <body>
@@ -107,7 +109,7 @@ function nav_active($page, $current) {
                             </li>
                             <li><hr class="user-menu-divider"></li>
                             <li>
-                                <a class="user-menu-item user-menu-item-logout" href="../controllers/handle_logout.php">
+                                <a class="user-menu-item user-menu-item-logout" href="<?= $controller_base ?>handle_logout.php">
                                     <span class="user-menu-item-icon"><i class="bi bi-box-arrow-right"></i></span>
                                     Esci
                                 </a>
@@ -135,7 +137,7 @@ function nav_active($page, $current) {
                                     <span class="mobile-user-panel-avatar"></span>
                                     <?= htmlspecialchars($_SESSION["nome"] ?? "Utente") ?>
                                 </span>
-                                <a class="mobile-user-panel-power" href="../controllers/handle_logout.php" title="Esci">
+                                <a class="mobile-user-panel-power" href="<?= $controller_base ?>handle_logout.php" title="Esci">
                                     <i class="bi bi-box-arrow-right"></i>
                                 </a>
                             </div>
