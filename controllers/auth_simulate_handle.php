@@ -4,7 +4,7 @@ require_once __DIR__ . "/conn.php";
 require_once __DIR__ . "/oauth_helpers.php";
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    header("Location: viewes/login.php");
+    header("Location: ../viewes/login.php");
     exit();
 }
 

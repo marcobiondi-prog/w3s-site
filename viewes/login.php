@@ -40,6 +40,18 @@ include __DIR__ . "/header.php";
                         </div>
                     <?php } ?>
 
+                    <?php if (isset($_GET["error"]) && $_GET["error"] == "invalid_password") { ?>
+                        <div class="alert alert-danger" role="alert">
+                            <i class="bi bi-exclamation-triangle"></i> Password errata
+                        </div>
+                    <?php } ?>
+
+                    <?php if (isset($_GET["error"]) && $_GET["error"] == "missing_fields") { ?>
+                        <div class="alert alert-warning" role="alert">
+                            <i class="bi bi-exclamation-triangle"></i> Inserisci email e password
+                        </div>
+                    <?php } ?>
+
                     <?php if (isset($_GET["reset"]) && $_GET["reset"] == "success") { ?>
                         <div class="alert alert-success" role="alert">
                             <i class="bi bi-check-circle"></i> Password reimpostata con successo! Accedi con la tua nuova password

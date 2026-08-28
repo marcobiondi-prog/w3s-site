@@ -55,6 +55,6 @@ function login_or_register_oauth($conn, $provider_column, $provider_id, $email, 
     $_SESSION["cognome"] = $utente["cognome"];
     $_SESSION["email"] = $utente["email"];
 
-    header("Location: viewes/dashboard.php");
+    header("Location: ../viewes/dashboard.php");
     exit();
 }

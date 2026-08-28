@@ -102,7 +102,7 @@ function nav_active($page, $current) {
                                 </a>
                             </li>
                             <li>
-                                <a class="user-menu-item" href="<?= $view_base ?>profilo.php">
+                                <a class="user-menu-item" href="<?= $view_base ?>user.php">
                                     <span class="user-menu-item-icon"><i class="bi bi-person"></i></span>
                                     Profilo
                                 </a>
@@ -127,7 +127,7 @@ function nav_active($page, $current) {
                                     <span class="mobile-user-link-icon"><i class="bi bi-speedometer2"></i></span>
                                     Dashboard
                                 </a>
-                                <a class="mobile-user-link" href="<?= $view_base ?>profilo.php">
+                                <a class="mobile-user-link" href="<?= $view_base ?>user.php">
                                     <span class="mobile-user-link-icon"><i class="bi bi-person"></i></span>
                                     Profilo
                                 </a>

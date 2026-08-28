@@ -42,7 +42,7 @@ include __DIR__ . "/header.php";
                         accedere: verrà creato (o ritrovato) un utente collegato a questa email.
                     </div>
 
-                    <form action="../auth_simulate_handle.php" method="POST">
+                    <form action="../controllers/auth_simulate_handle.php" method="POST">
 
                         <input type="hidden" name="provider" value="<?= htmlspecialchars($provider) ?>">
 

@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . "/conn.php";
+require_once __DIR__ . "/../models/user.php";
 
 // Controlla che il form sia stato inviato tramite POST
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
@@ -24,7 +25,7 @@ if (
     empty($password) ||
     empty($conferma_password)
 ) {
-    header("Location: viewes/register.php?error=1");
+    header("Location: ../viewes/register.php?error=1");
     exit();
 }
 
@@ -35,22 +36,12 @@ if ($password !== $conferma_password) {
 }
 
 // Controllo se l'email esiste già
-$sql = "SELECT id_utente FROM utenti WHERE email = ?";
+$user_model = new User($conn);
 
-$stmt = $conn->prepare($sql);
-
-$stmt->bind_param("s", $email);
-
-$stmt->execute();
-
-$result = $stmt->get_result();
-
-if ($result->num_rows > 0) {
+if ($user_model->checkregister($email)) {
     header("Location: ../viewes/register.php?exists=1");
     exit();
 }
-
-$stmt->close();
 
 // Crea l'hash della password
 $password_hash = password_hash($password, PASSWORD_DEFAULT);
@@ -81,7 +72,7 @@ if ($stmt->execute()) {
 
 } else {
 
-    header("Location: viewes/register.php?error=1");
+    header("Location: ../viewes/register.php?error=1");
     exit();
 
 }
