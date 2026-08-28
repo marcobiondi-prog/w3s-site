@@ -9,6 +9,7 @@ class User
         $this->conn = $conn;
     }
 
+    // Recupera un utente dal database tramite ID
     public function findById(int $id): ?array
     {
         $stmt = $this->conn->prepare(
@@ -23,6 +24,7 @@ class User
         return $user;
     }
 
+    // Controlla se un'email è già registrata nel database
     public function checkregister(string $email): bool
     {
         $stmt = $this->conn->prepare("SELECT id_utente FROM utenti WHERE email = ?");
@@ -34,6 +36,7 @@ class User
         return $exists;
     }
 
+    // Controlla se un'email esiste escludendo un utente specifico (utile per profilo update)
     public function emailExists(string $email, int $excludeId): bool
     {
         $stmt = $this->conn->prepare(
@@ -47,6 +50,7 @@ class User
         return $exists;
     }
 
+    // Aggiorna il profilo dell'utente
     public function updateProfile(
         int $id,
         string $nome,

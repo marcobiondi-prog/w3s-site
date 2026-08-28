@@ -2,15 +2,19 @@
 $title = "W3S - Home";
 include __DIR__ . '/viewes/header.php';
 
+// Controlla se l'utente è loggato (per decidere quali articoli mostrare)
 $logged_in = isset($_SESSION["user_id"]);
 
+// Recupera gli ultimi 6 articoli (visibili in base al login)
 if ($logged_in) {
+    // Utenti loggati vedono tutti gli articoli (pubblici e privati)
     $sql = "SELECT a.id_articolo, a.titolo, a.pubblico, ar.nome AS argomento
             FROM articoli a
             INNER JOIN argomenti ar ON a.id_argomento = ar.id_argomento
             ORDER BY a.id_articolo DESC
             LIMIT 6";
 } else {
+    // Utenti non loggati vedono solo articoli pubblici (pubblico = 1)
     $sql = "SELECT a.id_articolo, a.titolo, a.pubblico, ar.nome AS argomento
             FROM articoli a
             INNER JOIN argomenti ar ON a.id_argomento = ar.id_argomento
