@@ -58,7 +58,7 @@ include __DIR__ . "/header.php";
                         </div>
                     <?php } ?>
 
-                    <form action="../controllers/handle_login.php" method="POST">
+                    <form action="../controllers/handle_login.php" method="POST" id="loginForm">
 
                         <div class="form-floating mb-3">
                             <input
@@ -137,7 +137,21 @@ include __DIR__ . "/header.php";
 </div>
 
 <?php
-
 include __DIR__ . "/footer.php";
-
 ?>
+
+<!-- Validazione email lato client -->
+<script>
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+    const email = document.getElementById('email').value.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    // Se l'email è vuota o non valida, mostra alert e previeni l'invio
+    if (!email || !emailRegex.test(email)) {
+        e.preventDefault();
+        alert('⚠️ Email non valida. Per favore, inserisci un\'email valida.');
+        document.getElementById('email').focus();
+        return false;
+    }
+});
+</script>
