@@ -38,7 +38,7 @@ function nav_active($page, $current) {
         <div class="container-fluid">
 
             <!-- Logo -->
-                        <a class="navbar-brand logo" href="../index.php">W3S</a>
+            <a class="navbar-brand logo" href="<?= $home_base ?>index.php">W3S</a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
                     aria-controls="mainNav" aria-expanded="false" aria-label="Apri menu">
