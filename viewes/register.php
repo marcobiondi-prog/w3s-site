@@ -27,7 +27,7 @@ include __DIR__ . "/header.php";
                         </div>
                     <?php } ?>
 
-                        <form action="../controllers/handle_register.php" method="POST">
+                        <form action="../controllers/handle_register.php" method="POST" id="registerForm">
 
                         <div class="row">
 
@@ -137,7 +137,40 @@ include __DIR__ . "/header.php";
     </div>
 
 </div>
-
 <?php
 include __DIR__ . "/footer.php";
 ?>
+
+<!-- Validazione email e password lato client -->
+<script>
+document.getElementById('registerForm').addEventListener('submit', function(e) {
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('conferma_password').value;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    // Valida l'email
+    if (!email || !emailRegex.test(email)) {
+        e.preventDefault();
+        alert('⚠️ Email non valida. Per favore, inserisci un\'email valida.');
+        document.getElementById('email').focus();
+        return false;
+    }
+
+    // Valida che le password coincidono
+    if (password !== confirmPassword) {
+        e.preventDefault();
+        alert('⚠️ Le password non coincidono. Per favore, verifica la password di conferma.');
+        document.getElementById('conferma_password').focus();
+        return false;
+    }
+
+    // Valida che la password non sia troppo corta
+    if (password.length < 8) {
+        e.preventDefault();
+        alert('⚠️ La password deve contenere almeno 8 caratteri.');
+        document.getElementById('password').focus();
+        return false;
+    }
+});
+</script>

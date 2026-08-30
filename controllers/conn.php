@@ -4,19 +4,19 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Credenziali locale
+// Credenziali per connessione al database locale
 $host = "localhost";
 $user = "root";
 $pass = "";            // In MAMP di solito è "root", in XAMPP lascia vuoto ""
-$db   = "w3s"; // Nome del tuo database
+$db   = "w3s";         // Nome del database
 
-// Creazione connessione
+// Crea la connessione MySQLi
 $conn = new mysqli($host, $user, $pass, $db);
 
-// Controllo errori
+// Controlla se la connessione è riuscita
 if ($conn->connect_error) {
     die("Connessione fallita: " . $conn->connect_error);
 }
 
-// Imposta il charset per evitare problemi con gli accenti
+// Imposta il charset UTF-8 per evitare problemi con accenti e caratteri speciali
 $conn->set_charset("utf8mb4");
