@@ -9,7 +9,7 @@ if (!isset($_SESSION["user_id"])) {
 }
 
 $user_id = (int) $_SESSION["user_id"];
-$user_model = new User($conn);
+$user_model = new User();
 $utente = $user_model->findById($user_id);
 
 if (!$utente) {

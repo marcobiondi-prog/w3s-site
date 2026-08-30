@@ -1,11 +1,11 @@
 <?php
 
-require_once __DIR__ . "/conn.php";
+require_once "conn.php";
 
 // Controllo della sessione
 if (!isset($_SESSION["user_id"])) {
 
-    header("Location: viewes/login.php");
+    header("Location: login.php");
     exit();
 
 }
@@ -13,7 +13,7 @@ if (!isset($_SESSION["user_id"])) {
 // Controllo del metodo POST
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
 
-    header("Location: viewes/esercizi.php");
+    header("Location: esercizi.php");
     exit();
 
 }
@@ -92,7 +92,7 @@ try {
     // Conferma tutte le operazioni
     $conn->commit();
 
-    header("Location: viewes/esercizi.php");
+    header("Location: esercizi.php");
     exit();
 
 } catch (Exception $e) {

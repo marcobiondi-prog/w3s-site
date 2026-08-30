@@ -47,6 +47,10 @@ include __DIR__ . "/header.php";
         <div class="card-footer d-flex gap-2">
             <a href="articoli.php" class="btn btn-secondary">Torna agli articoli</a>
             <a href="articolo_modifica.php?id=<?= $articolo["id_articolo"] ?>" class="btn btn-primary">Modifica</a>
+            <form action="../controllers/handle_elimina_articolo.php" method="POST" onsubmit="return confirm('Vuoi eliminare questo articolo?');">
+                <input type="hidden" name="id_articolo" value="<?= $articolo["id_articolo"] ?>">
+                <button type="submit" class="btn btn-danger">Elimina</button>
+            </form>
         </div>
     </div>
 </main>

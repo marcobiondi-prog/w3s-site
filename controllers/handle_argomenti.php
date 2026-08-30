@@ -1,11 +1,11 @@
 <?php
 
-require_once __DIR__ . "/conn.php";
-
+require_once "conn.php";
+session_start();
 // Controllo della sessione
 if (!isset($_SESSION["user_id"])) {
 
-    header("Location: viewes/login.php");
+    header("Location: login.php");
     exit();
 
 }
@@ -13,7 +13,7 @@ if (!isset($_SESSION["user_id"])) {
 // Controlla che il form sia stato inviato tramite POST
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
 
-    header("Location: viewes/argomenti.php");
+    header("Location: argomenti.php");
     exit();
 
 }
@@ -41,10 +41,7 @@ $result = $stmt->get_result();
 
 if ($result->num_rows > 0) {
 
-    $stmt->close();
-    $conn->close();
-    header("Location: viewes/argomenti.php?errore=duplicato");
-    exit();
+    die("Questo argomento esiste già.");
 
 }
 
@@ -61,7 +58,7 @@ if ($stmt->execute()) {
 
     $stmt->close();
 
-    header("Location: viewes/argomenti.php?successo=inserimento");
+    header("Location: argomenti.php");
     exit();
 
 } else {

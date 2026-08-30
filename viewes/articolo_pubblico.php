@@ -107,6 +107,11 @@ $articolo = $result->fetch_assoc();
 
                 </a>
 
+                <form action="../controllers/handle_elimina_articolo.php" method="POST" onsubmit="return confirm('Vuoi eliminare questo articolo?');">
+                    <input type="hidden" name="id_articolo" value="<?php echo $articolo["id_articolo"]; ?>">
+                    <button type="submit" class="btn btn-danger">Elimina</button>
+                </form>
+
             <?php } ?>
 
         </div>

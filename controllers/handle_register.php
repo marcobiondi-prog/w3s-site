@@ -35,44 +35,21 @@ if ($password !== $conferma_password) {
     exit();
 }
 
-// Controllo se l'email esiste già
-$user_model = new User($conn);
+// Crea l'hash della password
+$password_hash = password_hash($password, PASSWORD_DEFAULT);
 
-if ($user_model->checkregister($email)) {
+$user_model = new User($nome, $cognome, $email, $telefono, $password_hash);
+
+// Controllo se l'email esiste già
+if ($user_model->checkRegister()) {
     header("Location: ../viewes/register.php?exists=1");
     exit();
 }
 
-// Crea l'hash della password
-$password_hash = password_hash($password, PASSWORD_DEFAULT);
-
-// Inserimento utente
-$sql = "INSERT INTO utenti
-(nome, cognome, email, numero_di_telefono, password)
-VALUES (?, ?, ?, ?, ?)";
-
-$stmt = $conn->prepare($sql);
-
-$stmt->bind_param(
-    "sssss",
-    $nome,
-    $cognome,
-    $email,
-    $telefono,
-    $password_hash
-);
-
-if ($stmt->execute()) {
-
-    $stmt->close();
-
+if ($user_model->register()) {
     header("Location: ../viewes/login.php?registered=1");
-
     exit();
-
 } else {
-
     header("Location: ../viewes/register.php?error=1");
     exit();
-
 }

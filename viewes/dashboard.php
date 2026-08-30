@@ -14,8 +14,11 @@ $title = "Dashboard";
 
 include __DIR__ . "/header.php";
 
-// Recupera tutti gli articoli
-$sql = "SELECT * FROM articoli ORDER BY id_articolo DESC";
+// Recupera tutti gli articoli ancora presenti nel database.
+$sql = "SELECT a.id_articolo, a.titolo, a.pubblico
+    FROM articoli a
+    INNER JOIN argomenti ar ON a.id_argomento = ar.id_argomento
+    ORDER BY a.id_articolo DESC";
 
 $result = $conn->query($sql);
 
@@ -98,7 +101,7 @@ $result = $conn->query($sql);
 
     </div>
 
-    <h2 class="mb-4">Articoli pubblicati</h2>
+    <h2 class="mb-4">Articoli</h2>
 
     <?php if ($result->num_rows > 0) { ?>
 

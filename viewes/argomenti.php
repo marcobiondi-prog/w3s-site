@@ -24,6 +24,10 @@ $result = $conn->query("SELECT * FROM argomenti ORDER BY id_argomento DESC");
 		<div class="alert alert-success" role="alert">Argomento inserito con successo.</div>
 	<?php } ?>
 
+	<?php if (isset($_GET["successo"]) && $_GET["successo"] === "eliminazione") { ?>
+		<div class="alert alert-success" role="alert">Argomento eliminato con successo.</div>
+	<?php } ?>
+
 	<div class="card shadow mb-5">
 		<div class="card-header bg-primary text-white"><h4>Nuovo Argomento</h4></div>
 		<div class="card-body">
@@ -42,12 +46,21 @@ $result = $conn->query("SELECT * FROM argomenti ORDER BY id_argomento DESC");
 		<div class="card-body">
 			<?php if ($result->num_rows > 0) { ?>
 				<table class="table table-striped">
-					<thead><tr><th>ID</th><th>Nome</th></tr></thead>
+					<thead><tr><th>ID</th><th>Nome</th><th>Azioni</th></tr></thead>
 					<tbody>
 						<?php while ($row = $result->fetch_assoc()) { ?>
 							<tr>
 								<td><?= $row["id_argomento"] ?></td>
 								<td><?= htmlspecialchars($row["nome"]) ?></td>
+								<td>
+									<div class="d-flex gap-2">
+										<a href="articoli_argomento.php?id=<?= $row["id_argomento"] ?>" class="btn btn-primary btn-sm">Leggi articoli</a>
+										<form action="../controllers/handle_elimina_argomento.php" method="POST" onsubmit="return confirm('Eliminare questo argomento e tutti i contenuti collegati?');">
+											<input type="hidden" name="id_argomento" value="<?= $row["id_argomento"] ?>">
+											<button type="submit" class="btn btn-danger btn-sm">Elimina</button>
+										</form>
+									</div>
+								</td>
 							</tr>
 						<?php } ?>
 					</tbody>
