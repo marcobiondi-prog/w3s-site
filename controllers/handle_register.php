@@ -41,7 +41,7 @@ $password_match = Validator::validatePasswordMatch(
     $_POST["conferma_password"] ?? ''
 );
 if (!$password_match['valid']) {
-    header("Location: ../viewes/register.php?error=" . $password_match['code']);
+    header("Location: ../viewes/register.php?error=password_mismatch");
     exit();
 }
 
@@ -49,18 +49,20 @@ if (!$password_match['valid']) {
 $email = $email_result['email'];
 $password_hash = $password_result['password_hash'];
 
+// Crea l'utente e verifica se esiste già usando la funzione nel modello
 $user_model = new User($nome, $cognome, $email, $telefono, $password_hash);
 
-// Controllo se l'email esiste già
+// Controllo se l'email esiste già usando la funzione del modello
 if ($user_model->checkRegister()) {
-    header("Location: ../viewes/register.php?exists=1");
+    header("Location: ../viewes/register.php?error=email_exists");
     exit();
 }
 
+// Prova a registrare l'utente
 if ($user_model->register()) {
     header("Location: ../viewes/login.php?registered=1");
     exit();
 } else {
-    header("Location: ../viewes/register.php?error=1");
+    header("Location: ../viewes/register.php?error=registration_failed");
     exit();
 }

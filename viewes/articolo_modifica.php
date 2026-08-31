@@ -1,57 +1,31 @@
 <?php
 
 require_once __DIR__ . "/../controllers/conn.php";
+require_once __DIR__ . "/../models/articolo.php";
 
 // Controllo della sessione
 if (!isset($_SESSION["user_id"])) {
-
     header("Location: login.php");
     exit();
-
 }
 
 // Controllo dell'ID
 if (!isset($_GET["id"]) || empty($_GET["id"])) {
-
     die("Articolo non trovato.");
-
 }
 
 $id = intval($_GET["id"]);
-
 $title = "Modifica Articolo";
 
-include __DIR__ . "/header.php";
+// Recupera l'articolo usando il modello
+$articolo = Articolo::findById($id);
 
-// Recupera l'articolo da modificare
-$sql = "SELECT id_articolo, id_argomento, titolo, corpo, pubblico
-        FROM articoli
-        WHERE id_articolo = ?";
-
-$stmt = $conn->prepare($sql);
-
-$stmt->bind_param("i", $id);
-
-$stmt->execute();
-
-$result = $stmt->get_result();
-
-if ($result->num_rows == 0) {
-
-    echo "<div class='container mt-5'>";
-    echo "<div class='alert alert-danger'>";
-    echo "Articolo non trovato.";
-    echo "</div>";
-    echo "</div>";
-
-    include __DIR__ . "/footer.php";
+if (!$articolo) {
+    header("Location: articoli.php");
     exit();
-
 }
 
-$articolo = $result->fetch_assoc();
-
-$stmt->close();
+include __DIR__ . "/header.php";
 
 // Recupera gli argomenti
 $argomenti = $conn->query("SELECT * FROM argomenti ORDER BY nome ASC");
@@ -66,7 +40,7 @@ $argomenti = $conn->query("SELECT * FROM argomenti ORDER BY nome ASC");
 
         <div class="card-body">
 
-            <form action="../handle_articoli.php" method="POST">
+            <form action="../controllers/handle_articoli.php" method="POST">
 
                 <input type="hidden" name="id_articolo" value="<?php echo $articolo["id_articolo"]; ?>">
 

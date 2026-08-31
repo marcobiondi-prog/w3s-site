@@ -87,5 +87,24 @@ if (mobileUserMenu && mobileUserPanel) {
 }
 </script>
 
+<!-- Auto-nascondi alert dopo 5 secondi -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const alerts = document.querySelectorAll(".alert");
+    alerts.forEach(alert => {
+        setTimeout(() => {
+            // Aggiunge animazione di scomparsa
+            alert.style.transition = "opacity 0.5s ease-out";
+            alert.style.opacity = "0";
+            
+            // Rimuove l'elemento dopo l'animazione
+            setTimeout(() => {
+                alert.remove();
+            }, 500);
+        }, 5000); // 5 secondi
+    });
+});
+</script>
+
 </body>
 </html>

@@ -15,15 +15,21 @@ include __DIR__ . "/header.php";
 
                     <h2 class="material-title text-center">Crea un account</h2>
 
-                    <?php if (isset($_GET["exists"]) && $_GET["exists"] == "1") { ?>
+                    <?php if (isset($_GET["error"])) {
+                        $error = $_GET["error"];
+                        $messages = [
+                            'email_exists' => 'Utente già esistente.',
+                            'password_mismatch' => 'Le password non coincidono.',
+                            'registration_failed' => '❌ Registrazione non effettuata. Riprova più tardi.',
+                            'missing_name' => '❌ Nome e cognome sono obbligatori.',
+                            'invalid_email' => '❌ Email non valida.',
+                            'weak_password' => '❌ Password troppo debole. Deve contenere maiuscole, minuscole, numeri e simboli.',
+                            'short_password' => '❌ Password troppo corta. Minimo 8 caratteri.',
+                        ];
+                        $message = $messages[$error] ?? '❌ Errore durante la registrazione.';
+                    ?>
                         <div class="alert alert-danger alert-register-danger" role="alert">
-                            Utente gia registrato con questa email.
-                        </div>
-                    <?php } ?>
-
-                    <?php if (isset($_GET["error"]) && $_GET["error"] == "1") { ?>
-                        <div class="alert alert-danger alert-register-danger" role="alert">
-                            registrazione non effettuata
+                            <?= htmlspecialchars($message) ?>
                         </div>
                     <?php } ?>
 

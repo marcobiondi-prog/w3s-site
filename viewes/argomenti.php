@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . "/../controllers/conn.php";
+require_once __DIR__ . "/../models/argomenti.php";
 
 if (!isset($_SESSION["user_id"])) {
 	header("Location: login.php");
@@ -10,7 +11,8 @@ if (!isset($_SESSION["user_id"])) {
 $title = "Gestione Argomenti";
 include __DIR__ . "/header.php";
 
-$result = $conn->query("SELECT * FROM argomenti ORDER BY id_argomento DESC");
+// Usa il modello per recuperare gli argomenti
+$argomenti_list = Argomenti::getAll("id_argomento DESC");
 ?>
 
 <div class="container mt-5">
@@ -63,11 +65,11 @@ $result = $conn->query("SELECT * FROM argomenti ORDER BY id_argomento DESC");
 	<div class="card shadow">
 		<div class="card-header bg-dark text-white"><h4>Elenco Argomenti</h4></div>
 		<div class="card-body">
-			<?php if ($result->num_rows > 0) { ?>
+			<?php if (!empty($argomenti_list)) { ?>
 				<table class="table table-striped">
 					<thead><tr><th>ID</th><th>Nome</th><th>Azioni</th></tr></thead>
 					<tbody>
-						<?php while ($row = $result->fetch_assoc()) { ?>
+						<?php foreach ($argomenti_list as $row) { ?>
 							<tr>
 								<td><?= $row["id_argomento"] ?></td>
 								<td><?= htmlspecialchars($row["nome"]) ?></td>

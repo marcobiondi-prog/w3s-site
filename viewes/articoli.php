@@ -14,9 +14,18 @@ $result = $conn->query("SELECT * FROM argomenti ORDER BY nome ASC");
 
 <div class="container mt-5">
 	<h1 class="mb-4">Nuovo Articolo</h1>
+
+	<?php if (isset($_GET["successo"]) && $_GET["successo"] === "1") { ?>
+		<div class="alert alert-success alert-dismissible fade show" role="alert" style="background-color: #d4edda; border: 2px solid #28a745; padding: 1rem;">
+			<i class="bi bi-check-circle-fill" style="color: #28a745; font-size: 1.2rem;"></i> 
+			<strong style="color: #28a745; font-size: 1.1rem;">Successo!</strong> Articolo salvato con successo.
+			<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+		</div>
+	<?php } ?>
+
 	<div class="card shadow">
 		<div class="card-body">
-			<form action="../handle_articoli.php" method="POST">
+			<form action="../controllers/handle_articoli.php" method="POST">
 				<div class="mb-3">
 					<label class="form-label" for="id_argomento">Argomento</label>
 					<select name="id_argomento" id="id_argomento" class="form-select" required>
