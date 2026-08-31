@@ -30,6 +30,7 @@ $articoli = $conn->query($sql);
 
     <h1 class="mb-4">Ultimi articoli</h1>
 
+
     <?php if ($articoli && $articoli->num_rows > 0) { ?>
 
         <div class="row g-4">
