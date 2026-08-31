@@ -146,7 +146,7 @@ $result = $conn->query($sql);
                         <td>
 
                             <a
-                                href="<?php echo $articolo["pubblico"] ? "articolo_pubblico.php" : "articolo.php"; ?>?id=<?php echo $articolo["id_articolo"]; ?>"
+                                href="articolo.php?id=<?php echo $articolo["id_articolo"]; ?>"
                                 class="btn btn-info">
 
                                 Leggi

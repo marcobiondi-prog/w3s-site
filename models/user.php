@@ -13,13 +13,25 @@ class User {
     public $telefono;
     public $password;
 
-    // Inizializza un utente; i valori vuoti permettono anche new User().
+    // Inizializza un utente; supporta sia parametri singoli che array dal database.
     public function __construct($nome = "", $cognome = "", $email = "", $telefono = "", $password = "") {
-        $this->nome = $nome;
-        $this->cognome = $cognome;
-        $this->email = $email;
-        $this->telefono = $telefono;
-        $this->password = $password;
+        // Se il primo parametro è un array (da database), carica i dati da esso
+        if (is_array($nome)) {
+            $data = $nome;
+            $this->id = $data['id_utente'] ?? null;
+            $this->nome = $data['nome'] ?? "";
+            $this->cognome = $data['cognome'] ?? "";
+            $this->email = $data['email'] ?? "";
+            $this->telefono = $data['numero_di_telefono'] ?? "";
+            $this->password = $data['password'] ?? "";
+        } else {
+            // Parametri singoli (modo tradizionale)
+            $this->nome = $nome;
+            $this->cognome = $cognome;
+            $this->email = $email;
+            $this->telefono = $telefono;
+            $this->password = $password;
+        }
     }
 
     // Inserisce nel database l'utente rappresentato dall'oggetto.

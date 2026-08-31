@@ -10,12 +10,15 @@ if (!isset($_SESSION["user_id"])) {
 
 $user_id = (int) $_SESSION["user_id"];
 $user_model = new User();
-$utente = $user_model->findById($user_id);
+$utente_data = $user_model->findById($user_id);
 
-if (!$utente) {
+if (!$utente_data) {
     header("Location: ../controllers/handle_logout.php");
     exit();
 }
+
+// Crea un oggetto User dall'array del database
+$utente = new User($utente_data);
 
 $errors = [];
 $updated = isset($_GET["updated"]);
@@ -50,10 +53,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $errors[] = "Impossibile salvare le modifiche. Riprova.";
     }
 } else {
-    $nome = $utente["nome"];
-    $cognome = $utente["cognome"];
-    $email = $utente["email"];
-    $telefono = $utente["numero_di_telefono"] ?? "";
+    $nome = $utente->nome;
+    $cognome = $utente->cognome;
+    $email = $utente->email;
+    $telefono = $utente->telefono;
 }
 
 $title = "Il mio account";

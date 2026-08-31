@@ -48,7 +48,7 @@ $articoli = $conn->query($sql);
                             <p class="card-text text-muted mb-3"><?php echo htmlspecialchars($articolo["argomento"]); ?></p>
 
                             <a
-                                href="viewes/<?php echo $articolo["pubblico"] ? "articolo_pubblico.php" : "articolo.php"; ?>?id=<?php echo $articolo["id_articolo"]; ?>"
+                                href="viewes/articolo.php?id=<?php echo $articolo["id_articolo"]; ?>"
                                 class="btn btn-primary btn-sm mt-auto">
                                 Leggi
                             </a>

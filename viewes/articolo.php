@@ -2,24 +2,27 @@
 
 require_once __DIR__ . "/../controllers/conn.php";
 
-if (!isset($_SESSION["user_id"])) {
-    header("Location: login.php");
-    exit();
-}
-
-if (!isset($_GET["id"]) || !ctype_digit((string) $_GET["id"])) {
+// Controllo dell'ID
+if (!isset($_GET["id"]) || empty($_GET["id"])) {
     die("Articolo non trovato.");
 }
 
-$id = (int) $_GET["id"];
+$id = intval($_GET["id"]);
 $title = "Visualizza Articolo";
+$isLoggedIn = isset($_SESSION["user_id"]);
 
-$stmt = $conn->prepare(
-    "SELECT a.id_articolo, a.titolo, a.corpo AS contenuto, ar.nome AS argomento
-     FROM articoli a
-     INNER JOIN argomenti ar ON a.id_argomento = ar.id_argomento
-     WHERE a.id_articolo = ?"
-);
+// Recupera l'articolo con il relativo argomento
+// Se non loggato, filtra solo articoli pubblici
+$sql = "SELECT a.id_articolo, a.titolo, a.corpo AS contenuto, ar.nome AS argomento
+        FROM articoli a
+        INNER JOIN argomenti ar ON a.id_argomento = ar.id_argomento
+        WHERE a.id_articolo = ?";
+
+if (!$isLoggedIn) {
+    $sql .= " AND a.pubblico = 1";
+}
+
+$stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $id);
 $stmt->execute();
 $articolo = $stmt->get_result()->fetch_assoc();
@@ -46,11 +49,13 @@ include __DIR__ . "/header.php";
         </div>
         <div class="card-footer d-flex gap-2">
             <a href="articoli.php" class="btn btn-secondary">Torna agli articoli</a>
-            <a href="articolo_modifica.php?id=<?= $articolo["id_articolo"] ?>" class="btn btn-primary">Modifica</a>
-            <form action="../controllers/handle_elimina_articolo.php" method="POST" onsubmit="return confirm('Vuoi eliminare questo articolo?');">
-                <input type="hidden" name="id_articolo" value="<?= $articolo["id_articolo"] ?>">
-                <button type="submit" class="btn btn-danger">Elimina</button>
-            </form>
+            <?php if ($isLoggedIn) { ?>
+                <a href="articolo_modifica.php?id=<?= $articolo["id_articolo"] ?>" class="btn btn-primary">Modifica</a>
+                <form action="../controllers/handle_elimina_articolo.php" method="POST" onsubmit="return confirm('Vuoi eliminare questo articolo?');">
+                    <input type="hidden" name="id_articolo" value="<?= $articolo["id_articolo"] ?>">
+                    <button type="submit" class="btn btn-danger">Elimina</button>
+                </form>
+            <?php } ?>
         </div>
     </div>
 </main>
