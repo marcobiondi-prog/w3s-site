@@ -36,7 +36,7 @@ include __DIR__ . "/header.php";
 
                     <?php if (isset($_GET["error"]) && $_GET["error"] == "email_not_found") { ?>
                         <div class="alert alert-warning" role="alert">
-                            <i class="bi bi-exclamation-triangle"></i> Email non trovata nel database
+                            <i class="bi bi-exclamation-triangle"></i> Utente non registrato. Crea un account per poter accedere.
                         </div>
                     <?php } ?>
 
@@ -49,6 +49,12 @@ include __DIR__ . "/header.php";
                     <?php if (isset($_GET["error"]) && $_GET["error"] == "missing_fields") { ?>
                         <div class="alert alert-warning" role="alert">
                             <i class="bi bi-exclamation-triangle"></i> Inserisci email e password
+                        </div>
+                    <?php } ?>
+
+                    <?php if (isset($_GET["error"]) && in_array($_GET["error"], ["email_required", "email_invalid", "email_too_long"], true)) { ?>
+                        <div class="alert alert-warning" role="alert">
+                            <i class="bi bi-exclamation-triangle"></i> Inserisci un indirizzo email valido.
                         </div>
                     <?php } ?>
 

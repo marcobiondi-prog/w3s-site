@@ -28,6 +28,14 @@ if (!$email_result['valid']) {
     exit();
 }
 
+// Controlla subito se l'email appartiene gia' a un utente registrato.
+$email = $email_result['email'];
+$existing_user = new User('', '', $email);
+if ($existing_user->checkRegister()) {
+    header("Location: ../viewes/register.php?error=email_exists");
+    exit();
+}
+
 // Valida la password con requisiti di sicurezza forte
 $password_result = Validator::validatePassword($_POST["password"] ?? '');
 if (!$password_result['valid']) {
@@ -46,23 +54,22 @@ if (!$password_match['valid']) {
 }
 
 // Estrae i dati validati e l'hash della password
-$email = $email_result['email'];
 $password_hash = $password_result['password_hash'];
 
 // Crea l'utente e verifica se esiste già usando la funzione nel modello
 $user_model = new User($nome, $cognome, $email, $telefono, $password_hash);
-
-// Controllo se l'email esiste già usando la funzione del modello
-if ($user_model->checkRegister()) {
-    header("Location: ../viewes/register.php?error=email_exists");
-    exit();
-}
 
 // Prova a registrare l'utente
 if ($user_model->register()) {
     header("Location: ../viewes/login.php?registered=1");
     exit();
 } else {
+    // Gestisce anche un inserimento concorrente della stessa email.
+    if ($user_model->checkRegister()) {
+        header("Location: ../viewes/register.php?error=email_exists");
+        exit();
+    }
+
     header("Location: ../viewes/register.php?error=registration_failed");
     exit();
 }

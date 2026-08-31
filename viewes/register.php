@@ -18,10 +18,20 @@ include __DIR__ . "/header.php";
                     <?php if (isset($_GET["error"])) {
                         $error = $_GET["error"];
                         $messages = [
-                            'email_exists' => 'Utente già esistente.',
+                            'email_exists' => 'Questa email è già registrata.',
                             'password_mismatch' => 'Le password non coincidono.',
+                            'password_required' => '❌ Password obbligatoria.',
+                            'password_too_short' => '❌ Password troppo corta. Minimo 8 caratteri.',
+                            'password_too_long' => '❌ Password troppo lunga.',
+                            'password_no_uppercase' => '❌ La password deve contenere una lettera maiuscola.',
+                            'password_no_lowercase' => '❌ La password deve contenere una lettera minuscola.',
+                            'password_no_number' => '❌ La password deve contenere un numero.',
+                            'password_no_special_char' => '❌ La password deve contenere un carattere speciale.',
                             'registration_failed' => '❌ Registrazione non effettuata. Riprova più tardi.',
                             'missing_name' => '❌ Nome e cognome sono obbligatori.',
+                            'email_required' => '❌ Email obbligatoria.',
+                            'email_invalid' => '❌ Email non valida.',
+                            'email_too_long' => '❌ Email troppo lunga.',
                             'invalid_email' => '❌ Email non valida.',
                             'weak_password' => '❌ Password troppo debole. Deve contenere maiuscole, minuscole, numeri e simboli.',
                             'short_password' => '❌ Password troppo corta. Minimo 8 caratteri.',

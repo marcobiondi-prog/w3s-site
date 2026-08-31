@@ -16,10 +16,10 @@ if (!$email_result['valid']) {
     exit();
 }
 
-// Valida il formato password
-$password_result = Validator::validatePassword($_POST["password"]);
-if (!$password_result['valid']) {
-    header("Location: ../viewes/login.php?error=" . $password_result['code']);
+// Nel login la password deve solo essere presente: i requisiti di complessita'
+// vengono applicati durante la registrazione, non prima della verifica nel database.
+if (empty($_POST["password"] ?? "")) {
+    header("Location: ../viewes/login.php?error=missing_fields");
     exit();
 }
 
@@ -46,7 +46,7 @@ if ($result->num_rows == 1) {
         $_SESSION["cognome"] = $utente["cognome"];
         $_SESSION["email"] = $utente["email"];
 
-        header("Location: ../viewes/dashboard.php");
+        header("Location: ../viewes/dashboard.php?login=found");
         exit();
     } else {
         // Password non corretta

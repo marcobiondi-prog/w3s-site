@@ -26,6 +26,12 @@ $result = $conn->query($sql);
 
 <div class="container mt-5">
 
+    <?php if (isset($_GET["login"]) && $_GET["login"] === "found") { ?>
+        <div class="alert alert-success" role="alert">
+            <i class="bi bi-check-circle"></i> Utente presente nel database. Accesso effettuato con successo.
+        </div>
+    <?php } ?>
+
     <h1 class="mb-3">
         Benvenuto,
         <?php echo htmlspecialchars($_SESSION["nome"]); ?>!
