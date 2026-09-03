@@ -5,6 +5,32 @@
 <!-- Bootstrap Bundle JS (necessario per il menu a tendina dell'utente, il toggler mobile, ecc.) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
+<?php
+// Dissolvi gli alert in tutte le pagine TRANNE nella home se non loggato
+$is_home = basename($_SERVER["SCRIPT_NAME"]) === "index.php";
+$is_logged_in = isset($_SESSION["user_id"]);
+$should_dissolve_alerts = !($is_home && !$is_logged_in);
+?>
+
+<?php if ($should_dissolve_alerts) { ?>
+<!-- Dissolvenza automatica degli alert -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const alerts = document.querySelectorAll(".alert");
+    alerts.forEach(alert => {
+        setTimeout(() => {
+            alert.style.transition = "opacity 0.5s ease-out";
+            alert.style.opacity = "0";
+
+            setTimeout(() => {
+                alert.remove();
+            }, 500);
+        }, 5000);
+    });
+});
+</script>
+<?php } ?>
+
 <!-- Effetto ripple in stile Material sui bottoni .btn-material / .btn-material-outline -->
 <script>
 document.addEventListener("click", function (event) {
@@ -90,27 +116,13 @@ if (mobileUserMenu && mobileUserPanel) {
 <!-- Auto-nascondi alert dopo 5 secondi e rimuovi parametri dall'URL per il tasto Indietro -->
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-    const alerts = document.querySelectorAll(".alert");
-    alerts.forEach(alert => {
-        setTimeout(() => {
-            // Aggiunge animazione di scomparsa
-            alert.style.transition = "opacity 0.5s ease-out";
-            alert.style.opacity = "0";
-            
-            // Rimuove l'elemento dopo l'animazione
-            setTimeout(() => {
-                alert.remove();
-            }, 500);
-        }, 5000); // 5 secondi
-    });
-
     // Pulisce i parametri di notifica dall'URL senza ricaricare la pagina.
     // In questo modo, tornando indietro con la cronologia del browser, l'alert non verrà riproposto.
     if (window.location.search) {
         const urlParams = new URLSearchParams(window.location.search);
         const alertKeys = ["successo", "success", "errore", "error", "registered", "updated", "reset", "login", "sent"];
         let hasAlertParam = false;
-        
+
         alertKeys.forEach(key => {
             if (urlParams.has(key)) {
                 hasAlertParam = true;
@@ -140,6 +152,106 @@ window.addEventListener("pageshow", function (event) {
     }
 });
 </script>
+<!-- Script per il dragging/swipe del carosello con mouse e touch -->
+<script>
+(function() {
+    const carousel = document.getElementById("demo");
+    if (!carousel) return;
 
-</body>
-</html>
+    const bootstrapCarousel = new bootstrap.Carousel(carousel, {
+        interval: 25000,
+        pause: false
+    });
+    const progressBar = carousel.querySelector(".carousel-progress-bar");
+    const indicators = carousel.querySelectorAll(".indicator-thumb");
+
+    let startX = 0;
+    let startY = 0;
+    let currentX = 0;
+    let isDragging = false;
+    const minDragDistance = 30;
+
+    // Funzione per reinizializzare la barra di progresso
+    const resetProgressBar = () => {
+        if (progressBar) {
+            progressBar.style.animation = "none";
+            setTimeout(() => {
+                progressBar.style.animation = "carousel-progress 25s linear forwards";
+            }, 10);
+        }
+    };
+
+    // Aggiorna gli indicatori quando cambia slide
+    const updateIndicators = () => {
+        const activeItem = carousel.querySelector(".carousel-item.active");
+        const activeIndex = Array.from(carousel.querySelectorAll(".carousel-item")).indexOf(activeItem);
+        indicators.forEach((indicator, index) => {
+            indicator.classList.toggle("active", index === activeIndex);
+        });
+    };
+
+    // Riavvia la barra e aggiorna indicatori ad ogni cambio slide
+    carousel.addEventListener("slide.bs.carousel", () => {
+        resetProgressBar();
+    });
+    carousel.addEventListener("slid.bs.carousel", () => {
+        updateIndicators();
+    });
+
+    // Aggiungi click handler agli indicatori
+    indicators.forEach((indicator, index) => {
+        indicator.addEventListener("click", () => {
+            bootstrapCarousel.to(index);
+        });
+    });
+
+    // Gestione mouse e touch
+    const startDrag = (e) => {
+        startX = e.type.includes("touch") ? e.touches[0].clientX : e.clientX;
+        startY = e.type.includes("touch") ? e.touches[0].clientY : e.clientY;
+        isDragging = true;
+        carousel.style.cursor = "grabbing";
+    };
+
+    const moveDrag = (e) => {
+        if (!isDragging) return;
+        currentX = e.type.includes("touch") ? e.touches[0].clientX : e.clientX;
+    };
+
+    const endDrag = () => {
+        if (!isDragging) return;
+        isDragging = false;
+        carousel.style.cursor = "grab";
+
+        const distance = startX - currentX;
+
+        // Swipe verso sinistra -> slide successivo
+        if (distance > minDragDistance) {
+            bootstrapCarousel.next();
+        }
+        // Swipe verso destra -> slide precedente
+        else if (distance < -minDragDistance) {
+            bootstrapCarousel.prev();
+        }
+    };
+
+    // Mouse events
+    carousel.addEventListener("mousedown", startDrag);
+    carousel.addEventListener("mousemove", moveDrag);
+    carousel.addEventListener("mouseup", endDrag);
+    carousel.addEventListener("mouseleave", endDrag);
+
+    // Touch events
+    carousel.addEventListener("touchstart", startDrag, { passive: true });
+    carousel.addEventListener("touchmove", moveDrag, { passive: true });
+    carousel.addEventListener("touchend", endDrag);
+
+    // Cambio cursore in hover
+    carousel.style.cursor = "grab";
+
+    // Inizializza la barra di progresso e indicatori al caricamento
+    resetProgressBar();
+    updateIndicators();
+})();
+</script>
+
