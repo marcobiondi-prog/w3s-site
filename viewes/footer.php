@@ -18,6 +18,11 @@ $should_dissolve_alerts = !($is_home && !$is_logged_in);
 document.addEventListener("DOMContentLoaded", function () {
     const alerts = document.querySelectorAll(".alert");
     alerts.forEach(alert => {
+        // Non dissolvere alert "Nessun articolo disponibile"
+        if (alert.textContent.includes("Nessun articolo")) {
+            return;
+        }
+
         setTimeout(() => {
             alert.style.transition = "opacity 0.5s ease-out";
             alert.style.opacity = "0";
