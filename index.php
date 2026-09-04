@@ -38,12 +38,15 @@ if (!$articoli) {
   <div class="carousel-progress-bar"></div>
 
   <!-- The slideshow/carousel -->
+   
   <div class="carousel-inner">
+
+
     <div class="carousel-item active">
       <img src="asset/image/Screenshot 2026-09-03 153756.png" alt="Hero Slide 1" class="d-block w-100 carousel-media">
       <div class="carousel-overlay"></div>
-      <div class="carousel-content-left">
-        <div class="carousel-text-left">
+       <div id="content" class="carousel-content-left">
+        <div id="caption" class="carousel-text-left">
           <h2>Benvenuto su W3S</h2>
           <p class="carousel-subtitle">Scopri i nostri contenuti</p>
           <p class="carousel-description">Accedi alle risorse esclusive e migliora le tue competenze con i nostri articoli e esercizi pratici.</p>
@@ -51,11 +54,13 @@ if (!$articoli) {
         </div>
       </div>
     </div>
+
+
     <div class="carousel-item">
       <img src="asset/image/chicago.jpg" alt="Hero Slide 2" class="d-block w-100 carousel-media">
       <div class="carousel-overlay"></div>
       <div class="carousel-content-left">
-        <div class="carousel-text-left">
+        <div id="caption" class="carousel-text-left">
           <h2>Impara con noi</h2>
           <p class="carousel-subtitle">Contenuti esclusivi</p>
           <p class="carousel-description">Articoli, esercizi e risorse per approfondire le tue conoscenze tecniche.</p>
@@ -63,11 +68,13 @@ if (!$articoli) {
         </div>
       </div>
     </div>
+
+
     <div class="carousel-item">
       <img src="asset/image/ny.jpg" alt="Hero Slide 3" class="d-block w-100 carousel-media">
       <div class="carousel-overlay"></div>
       <div class="carousel-content-left">
-        <div class="carousel-text-left">
+        <div id="caption" class="carousel-text-left">
           <h2>Migliora le tue competenze</h2>
           <p class="carousel-subtitle">Risorse premium</p>
           <p class="carousel-description">Accedi a una vasta collezione di materiali didattici e guide complete.</p>
