@@ -1337,6 +1337,13 @@ footer p {
 }
 
 
+@media (max-width: 1366px) {
+    #caption {
+      padding: 3% 1.5rem 0;
+    }
+  }
+
+
 @media (max-width: 768px) {
     #caption {
       padding: 3% 1.5rem 0;
